@@ -3,6 +3,7 @@ import Tmdb from "./Tmdb";
 import "./App.css";
 import MovieRow from "./components/MovieRow";
 import FeatureMovie from "./components/FeatureMovie";
+import Header from "./components/Header";
 
 export default () => {
   const [movieList, setMovieList] = useState([]);
@@ -21,6 +22,7 @@ export default () => {
       );
       let chosen = originals[0].items.results[randomChosen];
       let chosenInfo = await Tmdb.getMovieInfo(chosen.id, "tv");
+      setFeatureData(chosenInfo);
     };
     LoadAll();
   }, []);
@@ -29,7 +31,7 @@ export default () => {
     <div className="page">
       {featureData && <FeatureMovie item={featureData} />}
 
-      <section className="list">
+      <section className="lists">
         {movieList.map((item, key) => (
           <MovieRow key={key} title={item.title} items={item.items} />
         ))}
