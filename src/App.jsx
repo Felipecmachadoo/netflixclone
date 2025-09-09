@@ -8,6 +8,7 @@ import Header from "./components/Header";
 export default () => {
   const [movieList, setMovieList] = useState([]);
   const [featureData, setFeatureData] = useState(null);
+  const [blackHeader, setBlackHeader] = useState(false);
 
   useEffect(() => {
     const LoadAll = async () => {
@@ -27,8 +28,25 @@ export default () => {
     LoadAll();
   }, []);
 
+  useEffect(() => {
+    const scrollListener = () => {
+      if (window.scrollY > 10) {
+        setBlackHeader(true);
+      } else {
+        setBlackHeader(false);
+      }
+    };
+
+    window.addEventListener("scroll", scrollListener);
+    return () => {
+      window.removeEventListener("scroll", scrollListener);
+    };
+  }, []);
+
   return (
     <div className="page">
+      <Header black={blackHeader} />
+
       {featureData && <FeatureMovie item={featureData} />}
 
       <section className="lists">
@@ -36,6 +54,10 @@ export default () => {
           <MovieRow key={key} title={item.title} items={item.items} />
         ))}
       </section>
+
+      <footer className="footer-copyright">
+        <span>© 1997-2025 Netflix, Inc. </span>
+      </footer>
     </div>
   );
 };
