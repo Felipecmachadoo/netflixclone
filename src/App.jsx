@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Tmdb from "./Tmdb";
 import "./App.css";
 import MovieRow from "./components/MovieRow";
-import FeatureMovie from "./components/FeatureMovie";
+import FeatureMovie from "./components/FeaturedMovie";
 import Header from "./components/Header";
 
 export default () => {
@@ -58,6 +58,15 @@ export default () => {
       <footer className="footer-copyright">
         <span>© 1997-2025 Netflix, Inc. </span>
       </footer>
+
+      {movieList.length <= 0 && (
+        <div className="loading">
+          <img
+            src="https://media.wired.com/photos/592744d3f3e2356fd800bf00/3:2/w_600%2Cc_limit/Netflix_LoadTime.gif"
+            alt="Carregando"
+          />
+        </div>
+      )}
     </div>
   );
 };
